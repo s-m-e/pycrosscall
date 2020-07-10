@@ -4,7 +4,7 @@
 # Calling routines in Windows DLLs from Python scripts running on unixlike systems
 # https://github.com/pleiszenburg/zugbruecke
 #
-#	scripts/wine-python: Running Python on Wine using zugbruecke's configuration
+#	scripts/wine-pip: Running Pip in Wine environment
 #
 #	Required to run on platform / side: [UNIX]
 #
@@ -34,6 +34,9 @@ dir_wine=$zugbruecke_dir/$arch-wine
 # Make sure Python for Wine is installed
 python3 -c "from zugbruecke.core.wineenv import setup_wine_python; setup_wine_python(\"$arch\", \"$version\", \"$zugbruecke_dir\")"
 
+# Make sure Pip for Wine is installed
+python3 -c "from zugbruecke.core.wineenv import setup_wine_pip; setup_wine_pip(\"$arch\", \"$version\", \"$zugbruecke_dir\")"
+
 # Set environment variables
 export WINEARCH="$arch"
 export WINEPREFIX="$dir_wine"
@@ -41,5 +44,5 @@ export WINEPREFIX="$dir_wine"
 # Silence Wine ...
 export WINEDEBUG=-all
 
-# Fire up Python under Wine, pass cmd line arguments
-LC_ALL=zh_CN.UTF-8 wine $dir_py/python.exe "$@"
+# Fire up Pip under Wine, pass cmd line arguments
+LC_ALL=zh_CN.UTF-8 wine $dir_py/Scripts/$1.exe "${@:2}"

@@ -134,6 +134,7 @@ def setup_wine_python(arch, version, directory, overwrite = False):
 		f.close()
 
 		# Remove Python library zip from disk
+		os.remove(os.path.join(target_directory, 'python36._pth'))
 		os.remove(library_zip_path)
 
 
